@@ -1,3 +1,3 @@
 module.exports = {
-    dbConnection: 'mongodb://localhost/Categoriasdb'
+    dbConnection: 'mongodb://localhost/categoriesdb'
 }

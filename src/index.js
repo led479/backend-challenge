@@ -1,28 +1,18 @@
 const mongoose = require('mongoose')
+const Category = require('./models/caregoryModel')
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const port = 3000
 const bodyParser = require('body-parser')
 const config = require('./db/config')
 
-/* mongoose.connect(config.dbConnection, { useNewUrlParser: true}) */
+mongoose.connect(config.dbConnection, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 
 app.use(bodyParser.json())
+app.use(cors())
 
-const corsConfig = function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Credentials', true)
-  res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT')
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
-  next()
-}
+const apiRoutes = require('./routes/categoryRoutes')
+apiRoutes(app)
 
-app.use(corsConfig);
-
-/* const apiRoutes = require('./routes/api');
-app.use('/api', apiRoutes); */
-app.use('/api', (req, res) => {
-  res.send("Hello World!")
-})
-
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`Categories app listening on port ${port}!`))
