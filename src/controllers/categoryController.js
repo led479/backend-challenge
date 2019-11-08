@@ -4,7 +4,7 @@ const Category = mongoose.model('Categories')
 const filterObjectIdAndVersionKey = '-_id -__v'
 
 exports.list_all_categories = (req, res) => {
-  Category.find({}, filterObjectIdAndVersionKey)
+  Category.paginate({}, req.body)
     .then(categories => {
       res.json(categories)
     })
